@@ -85,5 +85,11 @@ database.rules.json  security rules to paste into Realtime Database → Rules
 - **Judge mode:** the “For judges” tab on the right of the home page reloads the site as “Judge” with 2000 Stardust and every tester tool, no sign-in needed. Judges can also sign in or create an account while in judge mode: they keep every tester tool, and their judge progress saves separately at `users/{uid}/judge`. Click the tab again (“Exit judge mode”) to go back to the normal site, where that account is a normal player (tester tools only for the accounts in `TESTER_HASHES`).
 - **Reset progress:** use the button in the footer.
 
+- ## How we used AI
+AI tools helped write the code (including the 3D planet and machine models,
+which are built in code) and helped create the logo. The idea, game workflow
+and UI/UX design are by Team Earthlings. Mission facts come from NASA sources,
+listed on the site's Data & methods page.
+
 ## Sources
 Mission facts come from NASA mission pages (science.nasa.gov, jpl.nasa.gov, nssdc.gsfc.nasa.gov). Photos come from images.nasa.gov. NASA imagery is generally not copyrighted. Check NASA's media guidelines before reusing it elsewhere.
