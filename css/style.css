@@ -852,3 +852,14 @@ body.modal-open .tourbar { display: none; }
   #app.page-in, .option.is-fresh, .pill--gain, .badge--big, .log--last.log--new, .photo, .acq, .mhero__photo.is-waking .viewer__stage img { animation: none !important; }
   .world { transform: none !important; }
 }
+
+/* ===== "Judges, start here" arrow pointing at the judge tab ===== */
+.judgehint { position: fixed; right: 52px; top: 50%; z-index: 61; transform: translateY(-50%); display: flex; align-items: center; gap: 10px; max-width: 300px; padding: 12px 14px; border-radius: 16px; background: var(--surface); border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0, 0, 0, .45); animation: hintIn .5s ease-out .6s both; }
+.judgehint__text { font-size: 14px; line-height: 1.4; color: var(--soft); }
+.judgehint__text b { display: block; color: var(--gold); font-size: 16px; }
+.judgehint__arrow { flex: 0 0 auto; width: 44px; height: 20px; fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; animation: hintNudge 1s ease-in-out infinite; }
+.judgehint__x { position: absolute; top: -12px; left: -12px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--gold); background: var(--surface); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+@keyframes hintIn { from { opacity: 0; transform: translate(-16px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
+@keyframes hintNudge { 50% { transform: translateX(6px); } }
+@media (max-width: 720px) { .judgehint { right: 40px; top: 40%; max-width: 220px; padding: 10px 12px; } .judgehint__text { font-size: 12.5px; } .judgehint__text b { font-size: 14px; } .judgehint__arrow { width: 30px; } }
+@media (prefers-reduced-motion: reduce) { .judgehint, .judgehint__arrow { animation: none; } }
