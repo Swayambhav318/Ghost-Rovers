@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ghost Rovers · Wake up NASA's lost machines</title>
+  <meta name="description" content="A story-driven space game for ages 10–14 about the NASA hardware left on the Moon, Mars, Venus, in orbit and in deep space. Made by Team Earthlings for the NASA Space Apps Challenge.">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#app">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap topbar__in">
+      <a class="logo" href="#/">
+        <img class="logo__img" src="images/logo.png" alt="" width="52" height="52">
+        GHOST ROVERS
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#/destinations">Destinations</a>
+        <a href="#/badges">Badges<span class="nav__long"> &amp; Stardust</span></a>
+        <a href="#/about" class="nav__about">About us</a>
+        <a href="#/left-behind" class="nav__lb">Left behind</a>
+        <a href="#/messages">Messages<span class="nav__badge" id="msgBadge" hidden>0</span></a>
+        <a href="#/signin">Account</a>
+      </nav>
+      <div class="hud" id="hud"></div>
+    </div>
+  </header>
+
+  <main id="app" class="wrap" tabindex="-1"></main>
+
+  <footer class="footer">
+    <div class="wrap footer__in">
+      <span><a href="#/left-behind">What we left behind</a> · <a href="#/challenge">The challenge</a> · <a href="#/data">Data &amp; methods</a> · Made by <a href="#/about">Team Earthlings</a> for the NASA Space Apps Challenge · Photos: NASA Image and Video Library</span>
+      <button class="btn btn--ghost btn--sm" data-action="reset">Reset my progress</button>
+    </div>
+    <p class="wrap footer__ai">How we used AI: AI tools helped write the code (including the 3D planet and machine models, which are built in code) and helped create the logo. The idea, game workflow and UI/UX design are by Team Earthlings. Mission facts come from NASA.</p>
+  </footer>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/machines/moon.js"></script>
+  <script src="js/machines/mars.js"></script>
+  <script src="js/machines/venus.js"></script>
+  <script src="js/machines/orbit.js"></script>
+  <script src="js/machines/deep.js"></script>
+  <script src="js/world-quiz.js"></script>
+  <script src="js/tech-more.js"></script>
+  <script src="js/legacy.js"></script>
+  <script src="js/missions.js"></script>
+  <script src="js/comms.js"></script>
+  <script src="js/app.js"></script>
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/scene3d.js"></script>
+  <script type="module" src="js/model3d.js"></script>
+</body>
+</html>
