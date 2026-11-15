@@ -83,6 +83,10 @@ function loadSave(key = SAVE_KEY) {
 let S = loadSave();
 if (JUDGE && S.stardust < TESTER_START_STARDUST) { S.stardust = TESTER_START_STARDUST; localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }
 
+// The "Judges, start here" arrow shows each visit until it's closed or judge mode is opened
+const judgeHintSeen = () => { try { return sessionStorage.getItem("ghostRovers.judgeHint") === "1"; } catch (e) { return false; } };
+const hideJudgeHint = () => { try { sessionStorage.setItem("ghostRovers.judgeHint", "1"); } catch (e) { /* storage blocked */ } const h = $(".judgehint"); if (h) h.remove(); };
+
 function toggleJudge(to = "#/") {
   try {
     if (JUDGE) { localStorage.removeItem(JUDGE_KEY); sessionStorage.removeItem("ghostRovers.tour"); }
@@ -703,7 +707,7 @@ function renderHome(scrollTo) {
     <section class="hero">
       <div class="hero__text">
         <span class="kicker">MISSION: FIND WHAT WE LEFT BEHIND</span>
-        <h1>NASA left ${MACHINES.length} machines across the solar system. <em>What’s left of them today?</em></h1>
+        <h1>NASA left many machines across the solar system. <em>What’s left of them today?</em></h1>
         <p class="lead">Some are still working. Some went silent. Some are gone. Explore each machine’s story, wake it up with real Mission Control decisions, and find out what’s happening to it now.</p>
         <div class="row">
           <a class="btn btn--primary btn--lg" href="#/left-behind">See what we left behind ${icon("arrow", 22)}</a>
@@ -714,11 +718,16 @@ function renderHome(scrollTo) {
       <div class="hero__art">${heroMapHTML()}</div>
     </section>
 
+    ${JUDGE || judgeHintSeen() ? "" : `<div class="judgehint" role="note">
+      <span class="judgehint__text"><b>Judges, start here!</b> Every feature unlocked, no sign-in, plus a guided tour.</span>
+      <svg class="judgehint__arrow" viewBox="0 0 60 24" aria-hidden="true"><path d="M2 12h48M40 3l12 9-12 9"/></svg>
+      <button class="judgehint__x" data-action="judgehintclose" aria-label="Hide this tip">${icon("x", 16)}</button>
+    </div>`}
     <button class="judgetab ${JUDGE ? "is-on" : ""}" data-action="judge" title="${JUDGE ? "Leave judge mode and return to the normal site" : "Open the site in judge mode, with every feature unlocked for testing"}">${icon(JUDGE ? "x" : "trophy", 18)}<span>${JUDGE ? "Exit judge mode" : "For judges"}</span></button>
 
     <section class="quickfacts" aria-label="Quick facts">
       <div class="card fact"><b>~187 tonnes</b><span>of human-made material left on the Moon</span></div>
-      <div class="card fact"><b>${MACHINES.filter((m) => m.status === "active").length} of ${MACHINES.length}</b><span>of our machines are still working today</span></div>
+      <div class="card fact"><b>${MACHINES.filter((m) => m.status === "active").length} of ${MACHINES.length}</b><span>covered machines are still working today</span></div>
       <div class="card fact"><b>${(commsInfo(machineById("voyager1")).km / 1e9).toFixed(1)} billion km</b><span>Voyager 1’s distance from Earth right now</span></div>
       <div class="card fact"><b>${fmtDur(commsInfo(machineById("voyager1")).oneWay)}</b><span>for a radio signal to reach Voyager 1 today</span></div>
     </section>
@@ -1503,7 +1512,7 @@ function renderLeftBehind() {
         <p class="muted">Every machine in Ghost Rovers is still out there: working, silent or gone. Here is what each one is doing today.</p>
       </div>
       <div class="quickfacts lb__facts">
-        <div class="card fact"><b>${counts.working}</b><span>of our ${MACHINES.length} machines are still working right now</span></div>
+        <div class="card fact"><b>${counts.working}</b><span>of the machines in Ghost Rovers are still working today</span></div>
         ${LEFT_BEHIND_FACTS.map(([b, t]) => `<div class="card fact"><b>${esc(b)}</b><span>${esc(t)}</span></div>`).join("")}
         <div class="card fact"><b>${(v1.km / 1e9).toFixed(1)} billion km</b><span>Voyager 1’s distance from Earth right now, the farthest of them all</span></div>
       </div>
@@ -2272,7 +2281,8 @@ const ACTIONS = {
   skyopen(el) { const m = machineById(el.dataset.id); const t = skyTarget(m); if (t) openModal(skyIntroHTML(m, t), "modal--sky"); },
   skystart(el) { startSky(machineById(el.dataset.id)); },
   closemodal() { closeModal(); },
-  judge() { toggleJudge(); },
+  judge() { hideJudgeHint(); toggleJudge(); },
+  judgehintclose() { hideJudgeHint(); },
   listen(el) { speak(el); },
   mtab(el) {
     mTab = el.dataset.t;
